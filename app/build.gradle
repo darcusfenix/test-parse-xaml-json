@@ -1,11 +1,15 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenCentral()
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "soy.crisostomo.www.app.test"
+        applicationId "soy.crisostomo.app.test"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -24,4 +28,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
+    compile 'com.google.apis:google-api-services-youtube:v3-rev150-1.20.0'
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
 }

@@ -1,31 +1,43 @@
-package soy.crisostomo.www.app.test;
+package soy.crisostomo.app.test.activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+
+import soy.crisostomo.app.test.R;
+import soy.crisostomo.app.test.model.Song;
+import soy.crisostomo.app.test.service.ParseSongsServiceXmlPullParserImp;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView textView;
+
+    Button buttonParseXML;
+    Button buttonPlayVideo;
+    Button buttonStandalone;
+    ListView listView;
+    String xmlData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +64,52 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        textView = (TextView) findViewById(R.id.textInicio);
+        buttonParseXML = (Button) findViewById(R.id.buttonParse);
+        buttonPlayVideo = (Button) findViewById(R.id.buttonPlay);
+        listView = (ListView) findViewById(R.id.listSongs);
+
+        buttonParseXML.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                ParseSongsServiceXmlPullParserImp parseSongs = new ParseSongsServiceXmlPullParserImp(xmlData);
+                boolean status = parseSongs.process();
+
+                if (status) {
+                    ArrayList<Song> allSongs = parseSongs.getSongs();
+                    ArrayAdapter<Song> adapter = new ArrayAdapter<Song>(MainActivity.this, R.layout.adapter, allSongs);
+                    listView.setVisibility(listView.VISIBLE);
+                    listView.setAdapter(adapter);
+                }
+            }
+
+        });
+
+        buttonPlayVideo.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,YoutubeActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+
+        new DonwloadData().execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=100/xml");
+
+        buttonStandalone = (Button) findViewById(R.id.buttonSubMenu);
+
+        buttonStandalone.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,StandAloneActivity.class);
+                startActivity(intent);
+            }
+
+        });
     }
 
     @Override
@@ -75,7 +132,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the Home/Up buttonParseXML, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -112,55 +169,58 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private class DonwloadData extends AsyncTask<String, Void, String>{
+    private class DonwloadData extends AsyncTask<String, Void, String> {
 
         String myXmlData;
 
-        protected String doInBackground(String... urls){
+        protected String doInBackground(String... urls) {
             try {
                 myXmlData = downloadXML(urls[0]);
-            }catch (IOException e){
+            } catch (IOException e) {
                 return "Unable to download XML file";
             }
             return "";
         }
-        protected void onPostExecute(String result){
-            Log.d("OnPostExecute", myXmlData);
+
+        protected void onPostExecute(String result) {
+            xmlData = myXmlData;
         }
+
         private String downloadXML(String theUrl) throws IOException {
             Integer BUFFER_SIZE = 2000;
-            InputStream inputStream = null;
-            String xmlCOntents = "";
+            InputStream is = null;
+            String xmlContents = "";
             try {
                 URL url = new URL(theUrl);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setReadTimeout(10000);
-                httpURLConnection.setConnectTimeout(15000);
-                httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.setDoInput(true);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+                conn.setDoInput(true);
 
-                Integer response = httpURLConnection.getResponseCode();
-                Log.d("DownloadXML", "The response returned is: " + response);
+                Integer response = conn.getResponseCode();
 
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                is = conn.getInputStream();
+
+                InputStreamReader isr = new InputStreamReader(is);
                 Integer charRead;
 
                 char[] inputBuffer = new char[BUFFER_SIZE];
                 try {
-                    while((charRead = inputStreamReader.read(inputBuffer)) > 0){
+                    while ((charRead = isr.read(inputBuffer)) > 0) {
                         String readString = String.copyValueOf(inputBuffer, 0, charRead);
-                        xmlCOntents += readString;
+                        xmlContents += readString;
                         inputBuffer = new char[BUFFER_SIZE];
                     }
-                    return xmlCOntents;
-                }catch (IOException e){
+                    return xmlContents;
+                } catch (IOException e) {
                     e.printStackTrace();
-                    return  null;
+                    return null;
                 }
 
-            }finally {
-                if (inputStream != null)
-                    inputStream.close();
+            } finally {
+                if (is != null)
+                    is.close();
             }
         }
     }
