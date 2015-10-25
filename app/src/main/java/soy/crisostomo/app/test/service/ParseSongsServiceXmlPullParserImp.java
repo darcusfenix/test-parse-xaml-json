@@ -18,7 +18,6 @@ public class ParseSongsServiceXmlPullParserImp implements ParseSongsService {
     public ParseSongsServiceXmlPullParserImp(String xmlData){
         this.data = xmlData;
         songs = new ArrayList<Song>();
-
     }
 
     public ArrayList<Song> getSongs() {
