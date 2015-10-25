@@ -26,7 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import soy.crisostomo.app.test.R;
-import soy.crisostomo.app.test.activity.office365.Office365Activity;
 import soy.crisostomo.app.test.activity.youtube.StandAloneActivity;
 import soy.crisostomo.app.test.activity.youtube.YoutubeActivity;
 import soy.crisostomo.app.test.model.Song;
@@ -156,9 +155,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camara) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            /*
             Intent intent = new Intent(MainActivity.this, Office365Activity.class);
             startActivity(intent);
-
+*/
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
