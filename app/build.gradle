@@ -29,5 +29,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile 'com.google.apis:google-api-services-youtube:v3-rev150-1.20.0'
+
+    compile 'com.microsoft.services:outlook-services:1.0.0'
+    compile 'com.microsoft.services.orc:orc-android:1.2.0'
+    compile 'com.microsoft.aad:adal:1.1.7@aar'
+
+
     compile files('libs/YouTubeAndroidPlayerApi.jar')
 }

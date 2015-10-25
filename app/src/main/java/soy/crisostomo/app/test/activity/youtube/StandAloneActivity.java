@@ -1,20 +1,12 @@
-package soy.crisostomo.app.test.activity;
+package soy.crisostomo.app.test.activity.youtube;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
-import com.google.api.services.youtube.YouTube;
 
 import soy.crisostomo.app.test.R;
 

@@ -1,4 +1,4 @@
-package soy.crisostomo.app.test.activity;
+package soy.crisostomo.app.test.activity.youtube;
 
 
 import android.os.Bundle;
@@ -7,9 +7,11 @@ import android.widget.Toast;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayer.*;
+import com.google.android.youtube.player.YouTubePlayer.ErrorReason;
+import com.google.android.youtube.player.YouTubePlayer.PlaybackEventListener;
+import com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener;
+import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.google.api.services.youtube.YouTube;
 
 import soy.crisostomo.app.test.R;
 
