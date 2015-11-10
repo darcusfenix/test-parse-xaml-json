@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.flickr.FlickrActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -34,6 +34,9 @@
         <activity android:name=".activity.office365.Office365Activity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".activity.flickr.FlickrActivity" >
         </activity>
         -->
     </application>
