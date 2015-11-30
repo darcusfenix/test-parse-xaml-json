@@ -2,6 +2,7 @@ package soy.crisostomo.app.test.activity.flickr;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import soy.crisostomo.app.test.R;
 public class FlickerRecyclerViewAdapter extends RecyclerView.Adapter<FlickerImageViewHolder>{
     private List<Photo> mPhotos;
     private Context mContext;
+    private final String LOG_TAG = FlickerRecyclerViewAdapter.class.getSimpleName();
 
     public FlickerRecyclerViewAdapter(List<Photo> mPhotos, Context mContext) {
         this.mPhotos = mPhotos;
@@ -34,6 +36,7 @@ public class FlickerRecyclerViewAdapter extends RecyclerView.Adapter<FlickerImag
     @Override
     public void onBindViewHolder(FlickerImageViewHolder flickerImageViewHolder, int position) {
         Photo photo = mPhotos.get(position);
+        Log.d(LOG_TAG," Processing: " + photo.getmTitle() + " ---> " + Integer.toString(position));
         Picasso.with(mContext).load(photo.getmImage())
                 .error(R.drawable.placeholder)
                 .placeholder(R.drawable.placeholder).into(flickerImageViewHolder.imageView);
