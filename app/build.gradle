@@ -27,17 +27,13 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-
-
-
-
-
-
-
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0+'
+    //compile 'com.android.support:cardView-v7:23.0+'
     compile ('com.google.apis:google-api-services-youtube:v3-rev150-1.20.0'){
         exclude group: 'om.google.common.reflect'
     }
+    compile 'com.squareup.picasso:picasso:2.5.2'
     files('libs/YouTubeAndroidPlayerApi.jar')
 }
