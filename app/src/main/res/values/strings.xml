@@ -10,4 +10,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="search_menu">Search</string>
+    <string name="search_label">Search Query</string>
+    <string name="query_hint">Enter photo tags</string>
 </resources>
