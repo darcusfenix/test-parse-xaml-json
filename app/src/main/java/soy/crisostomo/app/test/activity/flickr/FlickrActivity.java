@@ -10,7 +10,7 @@ import java.util.List;
 
 import soy.crisostomo.app.test.R;
 
-public class FlickrActivity extends AppCompatActivity {
+public class FlickrActivity extends BaseActivity {
 
     private static final String LOG_TAG = "FlickrActivity";
     private List<Photo> mPhotos = new ArrayList<Photo>();
@@ -22,6 +22,7 @@ public class FlickrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flickr);
 
+        activateToolbar();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

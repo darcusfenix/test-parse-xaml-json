@@ -39,6 +39,14 @@
         <activity android:name=".activity.flickr.FlickrActivity" >
         </activity>
         -->
+        <activity
+            android:name=".activity.flickr.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".activity.flickr.FlickrActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="soy.crisostomo.app.test.activity.flickr.FlickrActivity" />
+        </activity>
     </application>
 
 </manifest>

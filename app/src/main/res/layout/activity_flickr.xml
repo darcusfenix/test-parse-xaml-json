@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
     tools:context=".FlickrActivity">
+
+    <include android:id="@+id/app_bar" layout="@layout/tolbar"></include>
 
     <view
         android:id="@+id/recycler_view"
-        class="android.support.v7.widget.RecyclerView"
+        android:layout_below="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        class="android.support.v7.widget.RecyclerView" />
 
 </RelativeLayout>
