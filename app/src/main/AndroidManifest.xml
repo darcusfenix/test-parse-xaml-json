@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="soy.crisostomo.app.test">
+    package="soy.crisostomo.app.test" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activity.flickr.FlickrActivity"
             android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity
-                android:name=".activity.flickr.FlickrActivity"
-                android:label="@string/app_name"
-                android:theme="@style/Theme.Flickr">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            android:theme="@style/Theme.Flickr" >
         </activity>
         <activity
-                android:name=".activity.youtube.YoutubeActivity"
-                android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activity.youtube.YoutubeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-                android:name=".activity.youtube.StandAloneActivity"
-                android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
+            android:name=".activity.youtube.StandAloneActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <!--
         <activity android:name=".activity.office365.Office365Activity"
@@ -40,18 +38,31 @@
         </activity>
         -->
         <activity
-                android:name=".activity.flickr.SearchActivity"
-                android:label="@string/title_activity_search"
-                android:parentActivityName=".activity.flickr.FlickrActivity">
+            android:name=".activity.flickr.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName=".activity.flickr.FlickrActivity" >
             <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="soy.crisostomo.app.test.activity.flickr.FlickrActivity"/>
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="soy.crisostomo.app.test.activity.flickr.FlickrActivity" />
+
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                       android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".activity.mapbox.MapBoxActivity"
+            android:label="@string/title_activity_map_box" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

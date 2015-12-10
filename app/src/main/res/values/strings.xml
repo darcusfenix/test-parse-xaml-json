@@ -12,4 +12,5 @@
     <string name="search_menu">Search</string>
     <string name="search_label">Search Query</string>
     <string name="query_hint">Enter photo tags</string>
+    <string name="title_activity_map_box">Mapbox Activity</string>
 </resources>
