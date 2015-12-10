@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
+
 }
 
 android {
@@ -36,4 +37,7 @@ dependencies {
     }
     compile 'com.squareup.picasso:picasso:2.5.2'
     files('libs/YouTubeAndroidPlayerApi.jar')
+    compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:2.3.0@aar'){
+        transitive=true
+    }
 }
