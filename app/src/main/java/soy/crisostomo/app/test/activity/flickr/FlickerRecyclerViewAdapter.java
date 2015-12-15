@@ -47,4 +47,9 @@ public class FlickerRecyclerViewAdapter extends RecyclerView.Adapter<FlickerImag
     public int getItemCount() {
         return (null != mPhotos ? mPhotos.size() : 0) ;
     }
+
+    public void loadNewData(List<Photo> photos){
+        mPhotos = photos;
+        notifyDataSetChanged();
+    }
 }

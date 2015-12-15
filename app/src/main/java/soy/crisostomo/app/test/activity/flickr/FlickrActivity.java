@@ -1,6 +1,9 @@
 package soy.crisostomo.app.test.activity.flickr;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import soy.crisostomo.app.test.R;
 
 public class FlickrActivity extends BaseActivity {
@@ -47,4 +52,43 @@ public class FlickrActivity extends BaseActivity {
             }
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.menu_search) {
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mFlickerRecyclerViewAdapter != null){
+            String query = getSavedPreferenceData(FLICKR_QUERY);
+            if (query.length() > 0)
+            {
+                ProcessPhotos processPhotos = new ProcessPhotos(query, false);
+                processPhotos.execute();
+            }
+        }
+    }
+    private String getSavedPreferenceData(String key){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return sharedPreferences.getString(key, "");
+    }
+
 }

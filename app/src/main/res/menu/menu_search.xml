@@ -9,6 +9,6 @@
           android:icon="@android:drawable/ic_menu_search"
           android:title="@string/search_menu"
           android:orderInCategory="1"
-          flickr:actionViewClass="android.support.v7.widget.SearView"
+          flickr:actionViewClass="android.support.v7.widget.SearchView"
           flickr:showAsAction="always"></item>
 </menu>
