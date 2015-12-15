@@ -4,16 +4,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+import soy.crisostomo.app.test.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import soy.crisostomo.app.test.R;
 
 public class FlickrActivity extends BaseActivity {
 
@@ -28,30 +28,47 @@ public class FlickrActivity extends BaseActivity {
         setContentView(R.layout.activity_flickr);
 
         activateToolbar();
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ProcessPhotos processPhotos = new ProcessPhotos("flag,usa", true);
-        processPhotos.execute();
+        mFlickerRecyclerViewAdapter = new FlickerRecyclerViewAdapter(new ArrayList<Photo>(), FlickrActivity.this);
+        mRecyclerView.setAdapter(mFlickerRecyclerViewAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListenner(this, mRecyclerView, new RecyclerItemClickListenner.OnItemClickListenner() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(FlickrActivity.this, "tap normal", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(FlickrActivity.this, "tap long", Toast.LENGTH_LONG).show();
+            }
+        }));
+
     }
-    public class ProcessPhotos extends GetFlickrJSONData{
+
+    public class ProcessPhotos extends GetFlickrJSONData {
 
         public ProcessPhotos(String searchCriteria, boolean matchAll) {
             super(searchCriteria, matchAll);
         }
-        public void execute(){
+
+        public void execute() {
             super.execute();
             ProcessData processData = new ProcessData();
             processData.execute();
         }
-        public class  ProcessData extends DownloadJsonData{
-            protected void onPostExecute(String webData){
+
+        public class ProcessData extends DownloadJsonData {
+            protected void onPostExecute(String webData) {
                 super.onPostExecute(webData);
-                mFlickerRecyclerViewAdapter = new FlickerRecyclerViewAdapter(getmPhotos(), FlickrActivity.this);
-                mRecyclerView.setAdapter(mFlickerRecyclerViewAdapter);
+                mFlickerRecyclerViewAdapter.loadNewData(getPhotos());
             }
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -77,16 +94,16 @@ public class FlickrActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(mFlickerRecyclerViewAdapter != null){
-            String query = getSavedPreferenceData(FLICKR_QUERY);
-            if (query.length() > 0)
-            {
-                ProcessPhotos processPhotos = new ProcessPhotos(query, false);
-                processPhotos.execute();
-            }
+
+        String query = getSavedPreferenceData(FLICKR_QUERY);
+        if (query.length() > 0) {
+            ProcessPhotos processPhotos = new ProcessPhotos(query, false);
+            processPhotos.execute();
         }
+
     }
-    private String getSavedPreferenceData(String key){
+
+    private String getSavedPreferenceData(String key) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return sharedPreferences.getString(key, "");
     }

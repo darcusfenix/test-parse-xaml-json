@@ -24,7 +24,7 @@ public class GetFlickrJSONData extends GetRawData {
         createAndUpdateUrl(searchCriteria, matchAll);
     }
 
-    public List<Photo> getmPhotos() {
+    public List<Photo> getPhotos() {
         return mPhotos;
     }
 
