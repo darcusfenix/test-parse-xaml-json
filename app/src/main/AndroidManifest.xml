@@ -59,11 +59,18 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-
         </activity>
         <activity
             android:name=".activity.mapbox.MapBoxActivity"
             android:label="@string/title_activity_map_box" >
+        </activity>
+        <activity
+            android:name=".activity.flickr.ViewPhotoDetailsActivity"
+            android:label="@string/title_activity_view_photo_details"
+            android:parentActivityName=".activity.flickr.FlickrActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="soy.crisostomo.app.test.activity.flickr.FlickrActivity" />
         </activity>
     </application>
 

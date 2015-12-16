@@ -43,7 +43,9 @@ public class FlickrActivity extends BaseActivity {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(FlickrActivity.this, "tap long", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(FlickrActivity.this, ViewPhotoDetailsActivity.class);
+                intent.putExtra(PHOTO_TRANSFER, mFlickerRecyclerViewAdapter.getPhoto(position));
+                startActivity(intent);
             }
         }));
 

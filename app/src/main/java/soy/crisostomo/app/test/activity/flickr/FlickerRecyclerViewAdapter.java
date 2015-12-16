@@ -36,11 +36,11 @@ public class FlickerRecyclerViewAdapter extends RecyclerView.Adapter<FlickerImag
     @Override
     public void onBindViewHolder(FlickerImageViewHolder flickerImageViewHolder, int position) {
         Photo photo = mPhotos.get(position);
-        Log.d(LOG_TAG," Processing: " + photo.getmTitle() + " ---> " + Integer.toString(position));
-        Picasso.with(mContext).load(photo.getmImage())
+        Log.d(LOG_TAG," Processing: " + photo.getTitle() + " ---> " + Integer.toString(position));
+        Picasso.with(mContext).load(photo.getImage())
                 .error(R.drawable.placeholder)
                 .placeholder(R.drawable.placeholder).into(flickerImageViewHolder.imageView);
-        flickerImageViewHolder.textView.setText(photo.getmTitle());
+        flickerImageViewHolder.textView.setText(photo.getTitle());
     }
 
     @Override
@@ -51,5 +51,9 @@ public class FlickerRecyclerViewAdapter extends RecyclerView.Adapter<FlickerImag
     public void loadNewData(List<Photo> photos){
         mPhotos = photos;
         notifyDataSetChanged();
+    }
+
+    public Photo getPhoto(int position){
+        return (mPhotos != null ? mPhotos.get(position) : null);
     }
 }
